@@ -10,12 +10,9 @@ package com.jkachele.game.scene;
 import com.jkachele.game.components.*;
 import com.jkachele.game.engine.Camera;
 import com.jkachele.game.engine.GameObject;
-import com.jkachele.game.engine.Prefabs;
 import com.jkachele.game.engine.Transform;
 import com.jkachele.game.util.AssetPool;
-import com.jkachele.game.util.Constants;
-import imgui.ImGui;
-import imgui.ImVec2;
+import com.jkachele.game.util.Color;
 import org.joml.Vector2f;
 
 public class LevelEditorScene extends Scene {
@@ -33,7 +30,6 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera(new Vector2f());
         levelEditorComponents = new GameObject("LevelEditor", new Transform(), 0);
         levelEditorComponents.addComponent(new MouseControls());
-        levelEditorComponents.addComponent(new GridLines());
         sprites = AssetPool.getSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png");
         marioSprites = AssetPool.getSpritesheet("assets/images/spritesheets/characters.png");
         if (levelLoaded && !reset) {
@@ -42,6 +38,13 @@ public class LevelEditorScene extends Scene {
             }
             return;
         }
+
+        obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100),
+                new Vector2f(256, 256)), 2);
+        SpriteRenderer obj1Sprite = new SpriteRenderer();
+        obj1Sprite.setColor(Color.RED.toVector());
+        obj1.addComponent(obj1Sprite);
+        this.addGameObject(obj1);
     }
 
     private void loadResources() {
@@ -65,19 +68,9 @@ public class LevelEditorScene extends Scene {
         }
     }
 
-    float x = 0.0f;
-    float y = 0.0f;
-    float angle = 0.0f;
     @Override
     public void update(float dt) {
         levelEditorComponents.update(dt);
-
-//        DebugDraw.addBox2D(new Vector2f(200, 200), new Vector2f(128, 64), angle, Color.BLUE.toVector(), 1);
-//        angle += 30.0f * dt;
-//
-//        DebugDraw.addCircle(new Vector2f(x, y), 64, Color.GREEN.toVector(), 32, 1);
-//        x += 50.0f * dt;
-//        y += 50.0f * dt;
 
         // Update all game objects in the scene
         for (GameObject gameObject : this.gameObjects) {
@@ -86,46 +79,5 @@ public class LevelEditorScene extends Scene {
 
         // Render the scene
         this.renderer.render();
-    }
-
-    @Override
-    public void imgui() {
-        ImGui.begin("Test Window");
-
-        ImVec2 windowPos = new ImVec2();
-        ImGui.getWindowPos(windowPos);
-        ImVec2 windowSize = new ImVec2();
-        ImGui.getWindowSize(windowSize);
-        ImVec2 itemSpacing = new ImVec2();
-        ImGui.getStyle().getItemSpacing(itemSpacing);
-
-        float windowX2 = windowPos.x + windowSize.x;
-        for (int i = 0; i < sprites.size(); i++) {
-            Sprite sprite = sprites.getSprite(i);
-            float spriteWidth = sprite.getWidth() * 4;
-            float spriteHeight = sprite.getHeight() * 4;
-            int id = sprite.getTexID();
-            Vector2f[] uvCoords = sprite.getUvCoords();
-
-            ImGui.pushID(i);
-            if (ImGui.imageButton(id, spriteWidth, spriteHeight,
-                    uvCoords[2].x, uvCoords[0].y, uvCoords[0].x, uvCoords[2].y)) {
-                GameObject object = Prefabs.generateSpriteObject(sprite, Constants.GRID_WIDTH, Constants.GRID_HEIGHT);
-                // Attach this to the mouse cursor
-                levelEditorComponents.getComponent(MouseControls.class).pickupObject(object);
-            }
-            ImGui.popID();
-
-            ImVec2 lastButtonPos = new ImVec2();
-            ImGui.getItemRectMax(lastButtonPos);
-            float lastButtonX2 = lastButtonPos.x;
-            float nextButtonX2 = lastButtonX2 + itemSpacing.x + spriteWidth;
-            if (i + 1 < sprites.size() && nextButtonX2 < windowX2) {
-                ImGui.sameLine();
-            }
-
-        }
-
-        ImGui.end();
     }
 }

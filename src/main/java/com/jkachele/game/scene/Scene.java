@@ -15,7 +15,6 @@ import com.jkachele.game.engine.Camera;
 import com.jkachele.game.engine.GameObject;
 import com.jkachele.game.engine.GameObjectDeserializer;
 import com.jkachele.game.renderer.Renderer;
-import imgui.ImGui;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -59,19 +58,6 @@ public abstract class Scene {
             gameObject.start();
             this.renderer.add(gameObject);
         }
-    }
-
-    public void sceneImGui() {
-        if(currentGameObject != null) {
-            ImGui.begin("Inspector");
-            currentGameObject.imgui();
-            ImGui.end();
-        }
-        imgui();
-    }
-
-    public void imgui() {
-
     }
 
     public void saveExit() {

@@ -7,7 +7,6 @@
  ******************************************/
 package com.jkachele.game.engine;
 
-import com.jkachele.game.renderer.DebugDraw;
 import com.jkachele.game.util.Color;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -50,8 +49,6 @@ public class Engine implements Runnable{
             // invoked during this call.
             glfwPollEvents();
 
-            DebugDraw.beginFrame();
-
             // Set the clear color
             glClearColor(backgroundColor.getRed(), backgroundColor.getGreen(),
                     backgroundColor.getBlue(), backgroundColor.getAlpha());
@@ -60,13 +57,11 @@ public class Engine implements Runnable{
             // Render the scene into the framebuffer
 //            Window.getFramebuffer().bind();
             if(dt >= 0) {
-                DebugDraw.draw();
                 Window.getCurrentScene().update(dt);
             }
             // Render ImGUI into the window
             Window.getFramebuffer().unbind();
 
-            Window.getImGuiLayer().update(dt, Window.getCurrentScene());
             glfwSwapBuffers(Window.getGlfwWindow());
 
             System.out.print("\r" + fps(dt));

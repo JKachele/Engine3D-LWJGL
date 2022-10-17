@@ -35,12 +35,7 @@ public enum Window {;
     private static long glfwWindow;
     private static Color backgroundColor;
     private static boolean reset;
-    private static ImGuiLayer imGuiLayer;
     private static Framebuffer framebuffer;
-
-    private static final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    private static final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
-    //private static String glslVersion = null;
 
     private static Scene currentScene = null;
 
@@ -54,7 +49,6 @@ public enum Window {;
 
     public static void start() {
         initWindow();
-        initImGui();
     }
 
     private static void initWindow() {
@@ -117,16 +111,10 @@ public enum Window {;
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
-        Window.imGuiLayer = new ImGuiLayer(Window.glfwWindow);
-        Window.imGuiLayer.initImGui();
-
         Window.framebuffer = new Framebuffer(3840, 2160);
 
         // Initialize first scene
         Window.changeScene(0);
-    }
-
-    private static void initImGui() {
     }
 
     public static Scene getCurrentScene() {
@@ -182,10 +170,6 @@ public enum Window {;
 
     public static Color getBackgroundColor() {
         return backgroundColor;
-    }
-
-    public static ImGuiLayer getImGuiLayer() {
-        return imGuiLayer;
     }
 
     public static Framebuffer getFramebuffer() {

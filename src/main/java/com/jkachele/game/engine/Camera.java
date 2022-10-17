@@ -19,7 +19,10 @@ public class Camera {
     private Vector2f position;
 
     // Virtual screen size of 1920 x 1080 pixels (60 x 33.75 grid of 32 pixel cells)
-    private final Vector2f PROJECTION_SIZE = new Vector2f(60.0f * 32.0f, 33.75f * 32.0f);
+    private final float aspectRatio = 16.0f / 9.0f;
+    private final float screenHeight = 1080;
+    private final float screenWidth = screenHeight * aspectRatio;
+    private final Vector2f PROJECTION_SIZE = new Vector2f(screenWidth, screenHeight);
 
     public Camera(Vector2f cameraPosition) {
         this.position = cameraPosition;
@@ -33,10 +36,11 @@ public class Camera {
     public void adjustProjection() {
         projectionMatrix.identity();
         // Defines the size of the virtual screen the camera will output to
-        projectionMatrix.ortho(0.0f, PROJECTION_SIZE.x,        //Screen Width in "pixels"
-                0.0f, PROJECTION_SIZE.y,                          // Screen Height in "pixels"
-                0.0f, 100.0f);                               // Near and far clipping planes
-        projectionMatrix.invert(inverseProjection);
+//        projectionMatrix.ortho(0.0f, PROJECTION_SIZE.x,        //Screen Width in "pixels"
+//                0.0f, PROJECTION_SIZE.y,                          // Screen Height in "pixels"
+//                0.0f, 100.0f);                               // Near and far clipping planes
+//        projectionMatrix.invert(inverseProjection);
+        //projectionMatrix.perspective()
     }
 
     public Matrix4f getViewMatrix() {

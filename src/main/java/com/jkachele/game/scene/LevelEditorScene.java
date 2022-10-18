@@ -30,8 +30,8 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera(new Vector2f());
         levelEditorComponents = new GameObject("LevelEditor", new Transform(), 0);
         levelEditorComponents.addComponent(new MouseControls());
-        sprites = AssetPool.getSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png");
-        marioSprites = AssetPool.getSpritesheet("assets/images/spritesheets/characters.png");
+        //sprites = AssetPool.getSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png");
+        // marioSprites = AssetPool.getSpritesheet("assets/images/spritesheets/characters.png");
         if (levelLoaded && !reset) {
             if (!gameObjects.isEmpty()) {
                 this.currentGameObject = gameObjects.get(0);
@@ -39,10 +39,10 @@ public class LevelEditorScene extends Scene {
             return;
         }
 
-        obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100),
-                new Vector2f(256, 256)), 2);
+        obj1 = new GameObject("Object 1", new Transform(new Vector2f(-128, -128),
+                new Vector2f(256, 256)), 0);
         SpriteRenderer obj1Sprite = new SpriteRenderer();
-        obj1Sprite.setColor(Color.RED.toVector());
+        obj1Sprite.setTexture(AssetPool.getTexture("assets/images/TestImage.png"));
         obj1.addComponent(obj1Sprite);
         this.addGameObject(obj1);
     }
@@ -50,13 +50,14 @@ public class LevelEditorScene extends Scene {
     private void loadResources() {
         AssetPool.getShader("assets/shaders/default.glsl");
 
-        AssetPool.addSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png",
-                new Spritesheet(AssetPool.getTexture("assets/images/spritesheets/decorationsAndBlocks.png"),
-                        16, 16, 81, 0));
+//        AssetPool.addSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png",
+//                new Spritesheet(AssetPool.getTexture("assets/images/spritesheets/decorationsAndBlocks.png"),
+//                        16, 16, 81, 0));
         AssetPool.addSpritesheet("assets/images/spritesheets/characters.png",
                 new Spritesheet(AssetPool.getTexture("assets/images/spritesheets/characters.png"),
                         16, 16, 26, 0));
         AssetPool.getTexture("assets/images/blendImageG.png");
+        AssetPool.getTexture("assets/images/TestImage.png");
 
         for (GameObject gameObject : gameObjects) {
             if(gameObject.getComponent(SpriteRenderer.class) != null) {

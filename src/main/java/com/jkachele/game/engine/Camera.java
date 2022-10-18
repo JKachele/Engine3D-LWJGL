@@ -35,17 +35,13 @@ public class Camera {
 
     public void adjustProjection() {
         projectionMatrix.identity();
-        // Defines the size of the virtual screen the camera will output to
-//        projectionMatrix.ortho(0.0f, PROJECTION_SIZE.x,        //Screen Width in "pixels"
-//                0.0f, PROJECTION_SIZE.y,                          // Screen Height in "pixels"
-//                0.0f, 100.0f);                               // Near and far clipping planes
-//        projectionMatrix.invert(inverseProjection);
-        //projectionMatrix.perspective()
+        projectionMatrix.perspective(45, aspectRatio, 0.1f, 10000);
+        projectionMatrix.invert(inverseProjection);
     }
 
     public Matrix4f getViewMatrix() {
         // Camera is located at the origin, 20 units back
-        Vector3f cameraPosition = new Vector3f(position.x, position.y, 20.0f);
+        Vector3f cameraPosition = new Vector3f(position.x, position.y, -1000.0f);
         // Camera looks at the origin
         Vector3f cameraFront = new Vector3f(0.0f, 0.0f, 0.0f);
         // Camera is oriented so up is in the Y direction

@@ -7,12 +7,13 @@
  ******************************************/
 package com.jkachele.game.scene;
 
-import com.jkachele.game.components.*;
+import com.jkachele.game.components.MouseControls;
+import com.jkachele.game.components.SpriteRenderer;
+import com.jkachele.game.components.Spritesheet;
 import com.jkachele.game.engine.Camera;
 import com.jkachele.game.engine.GameObject;
 import com.jkachele.game.engine.Transform;
 import com.jkachele.game.util.AssetPool;
-import com.jkachele.game.util.Color;
 import org.joml.Vector2f;
 
 public class LevelEditorScene extends Scene {

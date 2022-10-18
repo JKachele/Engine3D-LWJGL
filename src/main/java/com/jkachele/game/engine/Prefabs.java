@@ -9,12 +9,12 @@ package com.jkachele.game.engine;
 
 import com.jkachele.game.components.Sprite;
 import com.jkachele.game.components.SpriteRenderer;
-import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 public class Prefabs {
-    public static GameObject generateSpriteObject(Sprite sprites, float sizeX, float sizeY) {
+    public static GameObject generateSpriteObject(Sprite sprites, float sizeX, float sizeY, float sizeZ) {
         GameObject block = new GameObject("Sprite_Object_Gen",
-                new Transform(new Vector2f(), new Vector2f(sizeX, sizeY)), 0);
+                new Transform(new Vector3f(), new Vector3f(sizeX, sizeY, sizeZ)), 0);
         SpriteRenderer renderer = new SpriteRenderer();
         renderer.setSprite(sprites);
         block.addComponent(renderer);

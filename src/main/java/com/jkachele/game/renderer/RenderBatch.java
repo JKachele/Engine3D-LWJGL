@@ -22,9 +22,9 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class RenderBatch implements Comparable<RenderBatch> {
-    // Pos              Color                           UV Coords       texture ID
-    // float, float,    float, float, float, float,     float, float,   float
-    private final int POS_SIZE = 2;
+    // Pos                    Color                           UV Coords       texture ID
+    // float, float, float    float, float, float, float,     float, float,   float
+    private final int POS_SIZE = 3;
     private final int COLOR_SIZE = 4;
     private final int UV_SIZE = 2;
     private final int TEX_ID_SIZE = 1;
@@ -197,6 +197,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         // Add the vertices with the appropriate attributes
         float xAdd = 1.0f;
         float yAdd = 1.0f;
+        float zAdd = 1.0f;
         for (int i = 0; i < 4; i++) {
             if (i == 1) {
                 yAdd = 0.0f;
@@ -211,19 +212,21 @@ public class RenderBatch implements Comparable<RenderBatch> {
                     (xAdd * sprite.gameObject.transform.scale.x);
             vertices[offset + 1] = sprite.gameObject.transform.position.y +
                     (yAdd * sprite.gameObject.transform.scale.y);
+            vertices[offset + 2] = sprite.gameObject.transform.position.z +
+                    (zAdd * sprite.gameObject.transform.scale.z);
 
             // Load color
-            vertices[offset + 2] = color.x; //r
-            vertices[offset + 3] = color.y; //g
-            vertices[offset + 4] = color.z; //b
-            vertices[offset + 5] = color.w; //a
+            vertices[offset + 3] = color.x; //r
+            vertices[offset + 4] = color.y; //g
+            vertices[offset + 5] = color.z; //b
+            vertices[offset + 6] = color.w; //a
 
             // Load UV coordinates
-            vertices[offset + 6] = uvCoords[i].x;
-            vertices[offset + 7] = uvCoords[i].y;
+            vertices[offset + 7] = uvCoords[i].x;
+            vertices[offset + 8] = uvCoords[i].y;
 
             // Load Texture ID
-            vertices[offset + 8] = texID;
+            vertices[offset + 9] = texID;
 
             offset += VERTEX_SIZE;
         }

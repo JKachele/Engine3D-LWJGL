@@ -15,6 +15,7 @@ import com.jkachele.game.engine.GameObject;
 import com.jkachele.game.engine.Transform;
 import com.jkachele.game.util.AssetPool;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 public class LevelEditorScene extends Scene {
 
@@ -40,8 +41,8 @@ public class LevelEditorScene extends Scene {
             return;
         }
 
-        obj1 = new GameObject("Object 1", new Transform(new Vector2f(-128, -128),
-                new Vector2f(256, 256)), 0);
+        obj1 = new GameObject("Object 1", new Transform(new Vector3f(-128, -128, 0),
+                new Vector3f(256, 256, 0)), 0);
         SpriteRenderer obj1Sprite = new SpriteRenderer();
         obj1Sprite.setTexture(AssetPool.getTexture("assets/images/TestImage.png"));
         obj1.addComponent(obj1Sprite);

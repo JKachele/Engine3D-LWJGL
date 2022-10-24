@@ -1,9 +1,9 @@
 /******************************************
- *Project-------Learn-LWJGL
+ *Project-------Engine3D-LWJGL
  *File----------Framebuffer.java
  *Author--------Justin Kachele
  *Date----------10/15/2022
- *License-------GNU GENERAL PUBLIC LICENSE
+ *License-------MIT License
  ******************************************/
 package com.jkachele.game.renderer;
 

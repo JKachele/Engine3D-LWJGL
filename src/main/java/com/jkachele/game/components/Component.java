@@ -1,9 +1,9 @@
 /******************************************
- *Project-------Learn-LWJGL
+ *Project-------Engine3D-LWJGL
  *File----------Component.java
  *Author--------Justin Kachele
  *Date----------10/3/2022
- *License-------GNU GENERAL PUBLIC LICENSE
+ *License-------MIT License
  ******************************************/
 package com.jkachele.game.components;
 
